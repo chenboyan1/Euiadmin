@@ -1,0 +1,79 @@
+<template>
+  <el-container id="aside">
+    <vAsideSpace />
+    <el-container>
+      <el-header :height="head_height" :style="{backgroundColor:head_background_color}">
+        <vHeadSpace />
+      </el-header>
+      <el-main id="main" :style="{backgroundColor:main_background_color}">
+         <el-card shadow="never" class="card">
+    <div slot="header" class="clearfix">
+      <span>TinyMce富文本编辑器</span>
+    </div>
+    <div>
+       <vEditorSpace v-model="editor_content"/>
+       <span>编辑器渲染内容：</span>
+       <div v-html="editor_content"></div>
+       <el-divider/>
+       <span>HTML原版内容：</span>
+       <el-divider/>
+       <div>
+         {{editor_content}}
+       </div>
+    </div>
+  </el-card>
+      </el-main>
+    </el-container>
+  </el-container>
+</template>
+<script>
+export default {
+  data(){
+      return{
+        editor_content:'',
+          head_background_color:this.$cookies.get('setting').head_background_color,
+          head_height:this.$cookies.get('setting').head_height+'px',
+          main_background_color:this.$cookies.get('setting').main_background_color,
+      }
+  },
+};
+</script>
+<style scoped>
+#aside {
+  height: 100vh;
+}
+#main {
+  height: 100vh;
+  overflow: auto;
+}
+/*滚动条的宽度*/
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+/*外层轨道。可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果*/
+::-webkit-scrollbar-track {
+  width: 6px;
+  background-color: #f2f6fc;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+/*滚动条的设置*/
+
+::-webkit-scrollbar-thumb {
+  background-color: #F56C6C;
+  background-clip: padding-box;
+  min-height: 1px;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+/*滚动条移上去的背景*/
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #fff;
+}
+</style>
